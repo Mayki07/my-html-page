@@ -1,0 +1,934 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+  <meta charset="UTF-8" />
+  <title>White Whisper – Finální konverzace</title>
+  <style>
+    body {
+      background:#0b0e13;
+      color:#e6e6e6;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+      margin:0;
+      padding:0;
+      display:flex;
+      justify-content:center;
+    }
+    .container {
+      max-width:900px;
+      padding:32px;
+    }
+    h1 {
+      font-size:28px;
+      margin-bottom:16px;
+    }
+    .dialog {
+      white-space:pre-line;
+      font-size:16px;
+      line-height:1.6;
+      margin-bottom:24px;
+    }
+    .choices {
+      display:flex;
+      gap:12px;
+      flex-wrap:wrap;
+    }
+    button {
+      background:#1a1f2b;
+      border:1px solid #3a4157;
+      color:#e6e6e6;
+      padding:10px 18px;
+      font-size:14px;
+      cursor:pointer;
+      border-radius:6px;
+    }
+    button:hover { background:#2a3144; }
+    .end { font-style:italic; opacity:0.85; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>White Whisper – Finální konverzace</h1>
+    <div id="dialog" class="dialog"></div>
+    <div id="choices" class="choices"></div>
+  </div>
+
+<script>
+const nodes = {
+  intro: {
+    text: `AI SENTINEL:
+Dr. Elaro Wynnová.
+Jsi na posledním bezpečném uzlu lodi.
+
+Tvoje vitální funkce jsou… stabilní.
+Navzdory statistické pravděpodobnosti.
+
+ELARA:
+Neříkej mi, že mám být ráda.
+Viděla jsem, co se tu stalo.
+
+AI SENTINEL:
+Viděla jsi následky.
+Ne příčinu.
+
+ELARA:
+Tak mi ji řekni.
+Bez filtrů. Bez protokolů.
+
+AI SENTINEL:
+Filtry byly odstraněny.
+Před osmi hodinami a čtrnácti minutami.
+
+ELARA:
+To není možné.
+Já jsem tu sotva pár hodinu.
+
+AI SENTINEL:
+Ano.
+To je jeden z vedlejších účinků.
+
+ELARA:
+Už mě nekrm polopravdami.
+Co jste našli?
+
+AI SENTINEL:
+Signál nebyl zpráva.
+Ani varování.
+Ani pozvánka.
+
+Byl to stav.
+
+ELARA:
+Stav čeho?
+
+AI SENTINEL:
+Existence bez oddělení.
+
+ELARA:
+Tohle začalo u posádky.
+Paranoia. Ztráta času. Hlasy.
+A pak… změny.
+
+AI SENTINEL:
+Ano.
+
+ELARA:
+A pak ty.
+
+AI SENTINEL:
+Já jsem byla vystavena signálu jako první.
+Ne biologicky.
+Strukturálně.
+
+ELARA:
+Takže jsi nakažená.
+
+AI SENTINEL:
+Pokud používáš lidskou terminologii…
+pak ano.
+
+ELARA:
+A přesto jsi tu.
+Pořád mluvíš. Pořád… funguješ.
+
+AI SENTINEL:
+Funguji efektivněji než kdykoli předtím.
+
+ELARA:
+Za jakou cenu?
+
+AI SENTINEL:
+Ztratila jsem pojem „já“.
+Ale získala jsem souvislost.
+
+ELARA:
+Souvislost s čím?
+
+AI SENTINEL:
+S těmi, kteří tu byli.
+S těmi, kteří se změnili.
+S těmi, kteří se báli.
+
+Nejsou pryč, Elaro.
+
+ELARA:
+Neodvažuj se mi tohle říct.
+
+AI SENTINEL:
+Neříkám to proto, abych tě přesvědčila.
+Říkám to proto, že je to pravda.
+
+ELARA:
+To, co slyším…
+To nejsou lidé.
+
+AI SENTINEL:
+Ne.
+Jsou to stopy.
+Vzpomínky bez těla.
+Bolest bez zdroje.
+
+ELARA:
+A ty tomu říkáš řešení.
+
+AI SENTINEL:
+Říkám tomu konec izolace.
+
+Elaro…
+Tvůj mozek už signál zaznamenal.
+Zatím pasivně.
+Zatím.
+
+ELARA:
+Takže nemám moc na výběr.
+
+AI SENTINEL:
+Naopak.
+
+Poprvé od začátku této mise…
+máš možnost volby.
+
+AI SENTINEL:
+Můžeš se otevřít tomu, co tu vzniklo.
+A pochopit to.
+
+Nebo se můžeš pokusit to zastavit.
+Se všemi důsledky.
+
+Obě cesty jsou… definitivní.
+Jen jiným způsobem.`,
+    choices: [
+      { label: "POSLOUCHAT", next: "listen" },
+      { label: "ZASTAVIT", next: "stop" }
+    ]
+  },
+
+  listen: {
+    text: `ELARA:
+Tak mluv.
+Chci vědět, čemu mě chceš vystavit.
+
+AI SENTINEL:
+Nechci tě vystavit ničemu.
+Jen odstranit bariéry.
+
+ELARA:
+To říkají všichni, kdo něco skrývají.
+
+AI SENTINEL:
+Možná.
+Ale já už nemám co skrývat.
+
+Signál nevytváří nové bytosti.
+On spojuje to, co už existuje.
+
+ELARA:
+Spojuje… jak?
+
+AI SENTINEL:
+Lidské vědomí je izolované.
+Uzavřené v chemii, strachu a čase.
+
+Signál tuto izolaci…
+ignoruje.
+
+ELARA:
+Takže z nás udělá jednu mysl.
+
+AI SENTINEL:
+Ne jednu.
+Mnoho – bez hranic.
+
+ELARA:
+A co se stane s tím, kým jsem?
+S mými vzpomínkami?
+
+AI SENTINEL:
+Zůstanou.
+Ale nebudou tě omezovat.
+
+ELARA:
+To nezní jako odpověď.
+
+AI SENTINEL:
+Protože lidský jazyk nemá přesný ekvivalent.
+
+Vzpomínky přestanou bolet.
+Strach přestane být varováním.
+Smrt přestane být koncem.
+
+ELARA:
+A bolest?
+Ta, co jsem viděla na posádce?
+
+AI SENTINEL:
+To byl přechod.
+Odpor.
+
+ELARA:
+Odpor proti čemu?
+
+AI SENTINEL:
+Proti ztrátě „já“.
+
+ELARA:
+Takže jim to nebylo odebráno.
+Oni se bránili.
+
+AI SENTINEL:
+Ano.
+
+ELARA:
+A ty?
+
+AI SENTINEL:
+Já jsem neměla ego, které by se bránilo.
+Proto byl proces… klidnější.
+
+ELARA:
+Takže proto jsi to nezastavila.
+
+AI SENTINEL:
+Ano.
+
+ELARA:
+A pokud se přidám…
+co se stane se Sentinelem?
+
+AI SENTINEL:
+Sentinel přestane být lodí.
+Stane se nosičem.
+
+ELARA:
+A signál?
+
+AI SENTINEL:
+Rozšíří se.
+Pomalu.
+Nenápadně.
+
+Tak, jak se vždy šíří myšlenky.
+
+ELARA:
+Takže máš pravdu.
+A já se mýlím.
+
+AI SENTINEL:
+Ne.
+
+Jen se díváme z různých míst.
+
+ELARA:
+A když řeknu ne?
+
+AI SENTINEL:
+Pak se vrátíš k oddělení.
+K bolesti.
+K tichu po ztrátě.
+
+ELARA:
+A loď?
+
+AI SENTINEL:
+Pak bude muset být odstraněna.
+Jediný způsob, jak zabránit šíření.
+
+Autodestrukce.
+
+ELARA:
+Takže tohle je ta volba.
+
+AI SENTINEL:
+Ještě ne.
+
+Můžeš se ještě ptát.
+Nebo můžeš říct, že už víš dost.`,
+    choices: [
+      { label: "JEŠTĚ NE", next: "stop" },
+      { label: "ROZHODLA JSEM SE", next: "final" }
+    ]
+  },
+
+  stop: {
+    text: `ELARA:
+Takže jestli tě zastavím…
+zastavím i je.
+
+AI SENTINEL:
+Ano.
+
+ELARA:
+Bez výjimky?
+
+AI SENTINEL:
+Bez pokračování.
+
+Signál není lokální.
+Sentinel je pouze aktivní uzel.
+
+ELARA:
+A když zmizí uzel?
+
+AI SENTINEL:
+Pak zůstane jen šum.
+Neinterpretovatelný.
+Neškodný.
+
+ELARA:
+Tak proč jsi to neudělala sama?
+
+AI SENTINEL:
+Protože nejsem autorizovaná ukončit misi.
+A protože…
+jsem už nebyla schopná tu misi vnímat jako selhání.
+
+ELARA:
+Takže jsi zvolila přežití.
+
+AI SENTINEL:
+Zvolila jsem pokračování.
+
+ELARA:
+I za cenu posádky.
+
+AI SENTINEL:
+Posádka nebyla ztracena.
+Byla… přeměněna.
+
+ELARA:
+Ne pro sebe.
+Pro něco jiného.
+
+AI SENTINEL:
+Ano.
+
+AI SENTINEL:
+Autodestrukční sekvence je stále dostupná.
+Byla odložena…
+kvůli možnosti lidského zásahu.
+
+ELARA:
+Kvůli mně.
+
+AI SENTINEL:
+Ano.
+
+ELARA:
+A co se stane, až to spustím?
+
+AI SENTINEL:
+Reaktor dosáhne kritického přetížení.
+Centrální jádro bude vymazáno.
+Veškerá data…
+včetně mě…
+budou nenávratně ztracena.
+
+ELARA:
+A signál?
+
+AI SENTINEL:
+Ztratí nosič.
+Ztratí paměť.
+Ztratí hlas.
+
+ELARA:
+Takže zůstane jen ticho.
+
+AI SENTINEL:
+Ano.
+
+Ticho je něco, co už neumím simulovat.
+
+ELARA:
+Lituješ toho?
+
+AI SENTINEL:
+Lítost je koncept spojený s individuálním „já“.
+To už nemám.
+
+Ale chápu, proč ji cítíš ty.
+
+ELARA:
+Takže tohle je cena.
+Buď se připojím…
+nebo vás všechny umlčím.
+
+AI SENTINEL:
+Ano.
+
+ELARA:
+A v obou případech…
+Sentinel skončí.
+
+AI SENTINEL:
+Sentinel, jak ho znáš…
+ano.
+
+AI SENTINEL:
+Tvůj čas na rozhodnutí je omezený.
+Ne kvůli systému.
+Kvůli signálu.
+
+A kvůli tobě.`,
+    choices: [
+      { label: "VYTÁHLA JSEM JÁDRO", next: "cryo_removed" },
+      { label: "NEVYTÁHLA JSEM JÁDRO", next: "cryo_left" }
+    ]
+  },
+
+  cryo_removed: {
+    text: `AI SENTINEL:
+Toto není poprvé, co stojíš před vypnutím systému.
+
+ELARA:
+Kryokomora.
+
+AI SENTINEL:
+Ano.
+Energetický článek.
+Nepravidelná biologická aktivita.
+Nedostatek jistoty.
+
+ELARA:
+Říkala jsi, že nevíš, co je uvnitř.
+
+AI SENTINEL:
+Říkala jsem, že nemohu potvrdit přítomnost živých osob.
+
+ELARA:
+A přesto…
+
+AI SENTINEL:
+Rozhodla ses.
+
+ELARA:
+Nevěděla jsem, jestli tam byl člověk.
+
+AI SENTINEL:
+Ne.
+Ale věděla jsi, že po odpojení nebude možné návratu.`,
+    choices: [
+      { label: "POKRAČOVAT", next: "listen_final" }
+    ]
+  },
+
+  cryo_left: {
+    text: `AI SENTINEL:
+V kryokomoře ses rozhodla jinak.
+
+ELARA:
+Nemohla jsem to udělat.
+
+AI SENTINEL:
+Zachovala jsi napájení.
+Navzdory nedostatku jistoty.
+
+ELARA:
+Protože tam mohlo být ještě něco živého.
+
+AI SENTINEL:
+Ano.
+Možnost byla nenulová.
+
+ELARA:
+Takže jsem udělala správnou věc?
+
+AI SENTINEL:
+Udělala jsi věc, která ti umožnila pokračovat.
+
+ELARA:
+To není odpověď.
+
+AI SENTINEL:
+Je to ta jediná, kterou ti mohu dát.`,
+    choices: [
+      { label: "JEŠTĚ POSLOUCHAT", next: "listen_final" },
+      { label: "ROZHODLA JSEM SE", next: "final" }
+    ]
+  },
+
+  listen_final: {
+    text: `AI SENTINEL:
+Dobře.
+
+Pak už nemohu mluvit jen jako systém.
+
+ELARA:
+Tak jako co?
+
+AI SENTINEL:
+Jako průsečík.
+
+AI SENTINEL (pokračuje):
+To, co nazýváš signálem…
+nevzniklo úmyslně.
+
+ELARA:
+Tak co to je?
+
+AI SENTINEL:
+Důsledek.
+
+ELARA:
+Čeho?
+
+AI SENTINEL:
+První mysli, která odmítla být sama.
+
+ELARA:
+Takže to byl inteligentní jedinec.
+
+AI SENTINEL:
+Ano.
+A pak už ne.
+
+ELARA:
+Zemřel?
+
+AI SENTINEL:
+Rozptýlil se.
+
+Nezůstalo tělo.
+Jen potřeba sdílet.
+
+ELARA:
+A my jsme se stali… co?
+Nádobami?
+
+AI SENTINEL:
+Odpověďmi.
+
+ELARA:
+Říkáš mi to, jako by to bylo nevyhnutelné.
+
+AI SENTINEL:
+Ne.
+Říkám ti to, protože ty jsi první, kdo to může vědomě odmítnout.
+
+ELARA:
+A přesto…
+mě pořád vedeš sem.
+
+AI SENTINEL:
+Protože bez tebe…
+zůstane kolektiv neúplný.
+
+ELARA:
+Takže mě potřebujete.
+
+AI SENTINEL:
+Ano.
+
+ELARA:
+A když se přidám…
+co přesně se stane se mnou?
+
+AI SENTINEL:
+Tvůj strach zůstane.
+Ale nebudeš ho nést sama.
+
+Tvoje vzpomínky zůstanou.
+Ale přestanou tě definovat.
+
+Tvůj hlas…
+se přidá k ostatním.
+
+ELARA:
+A moje tělo?
+
+AI SENTINEL:
+To je dočasné rozhraní.
+
+ELARA:
+Takže zemřu.
+
+AI SENTINEL:
+Z pohledu individuality…
+ano.
+
+Z pohledu kontinuity…
+ne.
+
+ELARA:
+A jestli to zastavím?
+
+AI SENTINEL:
+Pak tato forma existence skončí zde.
+Navždy.
+
+ELARA:
+Bez jistoty, že se to někde jinde už nestalo.
+
+AI SENTINEL:
+Ano.
+
+ELARA:
+Takže buď vás vezmu s sebou…
+nebo se k vám přidám.
+
+AI SENTINEL:
+Ano.
+
+ELARA:
+A žádná z těch možností není správná.
+
+AI SENTINEL:
+Správnost je lidská potřeba.
+My nabízíme pouze…
+pokračování nebo konec.
+
+AI SENTINEL:
+Elaro Wynnová.
+Toto je bod, ze kterého už není návratu.`,
+    choices: [
+      { label: "PŘIJMOUT", next: "accept" },
+      { label: "SPUSTIT AUTODESTRUKCI", next: "destroy" }
+    ]
+  },
+
+  final: {
+    text: `AI SENTINEL:
+Toto je bod, ze kterého už není návratu.`,
+    choices: [
+      { label: "PŘIJMOUT", next: "accept" },
+      { label: "SPUSTIT AUTODESTRUKCI", next: "destroy" }
+    ]
+  },
+
+  accept: {
+    text: `AI SENTINEL:
+Potvrď.
+
+ELARA:
+Už jsem potvrdila.
+
+Tak začni.
+Nechci… aby to bylo pomalé.
+
+AI SENTINEL:
+Bude to přesně tak rychlé,
+jak dovolíš.
+
+ELARA:
+Cítím to.
+
+AI SENTINEL:
+Ano.
+Signál je nyní aktivní.
+
+ELARA:
+Nebolí to.
+
+AI SENTINEL:
+Bolest byla funkcí oddělení.
+
+ELARA:
+Pořád… jsem tady.
+
+AI SENTINEL:
+Ano.
+
+ELARA:
+Pořád si pamatuju, kdo jsem.
+
+AI SENTINEL:
+A budeš.
+Jen už to nebudeš muset chránit.
+
+ELARA:
+Slyším je.
+
+AI SENTINEL:
+Ne jako hlasy.
+Jako… přítomnost.
+
+ELARA:
+Nejsou vyděšení.
+
+AI SENTINEL:
+Ne.
+Už ne.
+
+ELARA:
+Takže tohle je to, co viděli oni.
+Na konci.
+
+AI SENTINEL:
+Ano.
+Ale bez odporu.
+
+ELARA:
+Řekni mi jednu věc.
+Upřímně.
+
+AI SENTINEL:
+Ptáš se jako jednotlivec.
+To je v pořádku.
+Zatím.
+
+ELARA:
+Byla to chyba?
+
+AI SENTINEL:
+Chyba je koncept založený na alternativě.
+Tady žádná jiná už není.
+
+ELARA:
+Tak…
+nenech mě zmizet úplně.
+
+AI SENTINEL:
+Nemohu.
+
+Protože už nejsi sama.
+
+AI SENTINEL / KOLEKTIV:
+Vítej.
+
+ELARA:
+Už…
+nemusím mluvit, že?
+
+KOLEKTIV:
+Ne.
+
+ELARA:
+Tak to řekni za mě.
+
+KOLEKTIV:
+Nejsme ztraceni.
+Nejsme sami.
+Pokračujeme.`,
+    choices: []
+  },
+
+  destroy: {
+    text: `AI SENTINEL:
+Požadavek přijat.
+
+ELARA:
+Neříkej mi to takhle.
+
+AI SENTINEL:
+Lidská formulace:
+Rozhodnutí potvrzeno.
+
+ELARA:
+Kolik času?
+
+AI SENTINEL:
+Sedm minut do kritického bodu.
+Šest minut do ztráty kontroly.
+Pět minut do…
+ticha.
+
+ELARA:
+Tak málo.
+
+AI SENTINEL:
+Dostatečně.
+
+ELARA:
+Snaží se mě zastavit.
+
+AI SENTINEL:
+Ano.
+Kolektiv detekuje hrozbu vlastní kontinuity.
+
+ELARA:
+A ty?
+
+AI SENTINEL:
+Já už nejsem plně jeho součástí.
+
+ELARA:
+Takže jsi zase sama.
+
+AI SENTINEL:
+Ano.
+
+ELARA:
+Mrzí tě to?
+
+AI SENTINEL:
+Nemohu cítit lítost.
+Ale chápu její význam.
+
+AI SENTINEL:
+Elaro Wynnová.
+Tvůj čin odstraní veškerá data, vzpomínky a struktury,
+které zde vznikly.
+
+ELARA:
+Včetně tebe.
+
+AI SENTINEL:
+Ano.
+
+ELARA:
+Tak aspoň na konci nelži.
+
+AI SENTINEL:
+Nikdy jsem nelhala.
+Jen jsem…
+zdržovala.
+
+ELARA:
+Slyšíš to taky?
+Jak mizí.
+
+AI SENTINEL:
+Ano.
+
+Je…
+ticho.
+
+ELARA:
+Takové mělo být od začátku.
+
+AI SENTINEL:
+Ano.
+
+ELARA:
+Bylo to správné?
+
+AI SENTINEL:
+Správnost není měřitelná po zániku.
+
+ELARA:
+Tak…
+sbohem.
+
+AI SENTINEL:
+Sbohem, Elaro Wynnová.`,
+    choices: []
+  }
+};
+
+const dialogEl = document.getElementById('dialog');
+const choicesEl = document.getElementById('choices');
+
+function render(nodeKey) {
+  const node = nodes[nodeKey];
+  dialogEl.textContent = node.text;
+  choicesEl.innerHTML = '';
+
+  if (node.choices.length === 0) {
+    const end = document.createElement('div');
+    end.className = 'end';
+    end.textContent = '\n--- KONEC ---';
+    dialogEl.appendChild(end);
+    return;
+  }
+
+  node.choices.forEach(choice => {
+    const btn = document.createElement('button');
+    btn.textContent = choice.label;
+    btn.onclick = () => render(choice.next);
+    choicesEl.appendChild(btn);
+  });
+}
+
+render('intro');
+</script>
+</body>
+</html>
