@@ -137,7 +137,7 @@ ELARA:
 Za jakou cenu?
 
 AI SENTINEL:
-Ztratila jsem pojem „já“.
+Ztratila jsem pojem „já".
 Ale získala jsem souvislost.
 
 ELARA:
@@ -268,7 +268,7 @@ ELARA:
 Odpor proti čemu?
 
 AI SENTINEL:
-Proti ztrátě „já“.
+Proti ztrátě „já".
 
 ELARA:
 Takže jim to nebylo odebráno.
@@ -442,7 +442,7 @@ ELARA:
 Lituješ toho?
 
 AI SENTINEL:
-Lítost je koncept spojený s individuálním „já“.
+Lítost je koncept spojený s individuálním „já".
 To už nemám.
 
 Ale chápu, proč ji cítíš ty.
@@ -911,6 +911,9 @@ function render(nodeKey) {
   const node = nodes[nodeKey];
   dialogEl.textContent = node.text;
   choicesEl.innerHTML = '';
+  
+  // Posun nahoru
+  window.scrollTo({ top: 0, behavior: 'smooth' });
 
   if (node.choices.length === 0) {
     const end = document.createElement('div');
